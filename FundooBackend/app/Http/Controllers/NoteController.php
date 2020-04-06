@@ -140,17 +140,39 @@ class NoteController extends Controller
         }
     }
 
-    public function deleteNotes(Request $request)
-    {
-            $note= Notes::find($request['id']);
-            if($note){
-                $note = Notes::find($request['id'])->delete();
-                return response()->json(['message' => 'Note deleted succefully'],200);
-            }else
-            {
-                return response()->json(['message'=>'Note id is invalid'],400);
-            }
-    }
-     
    
+     
+     public function deleteNotes(Request $request) {
+        $find = Notes::find($request['id']);
+        if ($find) {
+            $find = Notes::find($request['id'])->delete();
+            return response()->json(['message' => 'Note Deleted Successfully'],200);
+        } else {
+            return response()->json(['message' => 'Note Id Invalid'],404);
+        }
+    }
+
+
+    public function noteColor(Request $request){
+        $note = Notes::find($request['id']);
+        if($note){
+            $note->color=$request->color;
+            if($note->save()){
+                return response()->json(['message' => 'Note  color changed'],200);
+            }else{
+                return response()->json(['message' => 'Error while changing color'],404);
+            }
+        }
+        else
+        {
+            return response()->json(['message' => 'note id not found'],404);
+        }
+
+    }
+
+
+
+
+
+
 }
