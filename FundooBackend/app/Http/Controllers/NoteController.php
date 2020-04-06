@@ -139,4 +139,18 @@ class NoteController extends Controller
             return response()->json(['message' => 'unauthorized error']);
         }
     }
+
+    public function deleteNotes(Request $request)
+    {
+            $note= Notes::find($request['id']);
+            if($note){
+                $note = Notes::find($request['id'])->delete();
+                return response()->json(['message' => 'Note deleted succefully'],200);
+            }else
+            {
+                return response()->json(['message'=>'Note id is invalid'],400);
+            }
+    }
+     
+   
 }

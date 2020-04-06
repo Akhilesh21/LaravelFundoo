@@ -46,7 +46,7 @@ Route::post('trashNote', 'NoteController@trashNote');
 Route::post('restoreNote', 'NoteController@restoreNote');
 Route::post('archiveNote', 'NoteController@archiveNote');
 Route::post('unarchiveNote', 'NoteController@unarchiveNote');
-
+Route::post('deleteNotes', 'NoteController@deleteNotes');
 //***********display */
 Route::get('getNotes', 'NoteController@getNotes');
 
