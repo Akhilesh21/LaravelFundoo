@@ -48,6 +48,7 @@ Route::post('archiveNote', 'NoteController@archiveNote');
 Route::post('unarchiveNote', 'NoteController@unarchiveNote');
 Route::post('deleteNotes', 'NoteController@deleteNotes');
 Route::post('noteColor', 'NoteController@noteColor');
+Route::post('updatePin', 'NoteController@updatePin');
 
 //***********display */
 Route::get('getNotes', 'NoteController@getNotes');

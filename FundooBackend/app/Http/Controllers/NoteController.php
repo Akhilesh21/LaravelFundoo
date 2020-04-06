@@ -169,10 +169,32 @@ class NoteController extends Controller
         }
 
     }
+   
 
+    public function getPinnedNote(){
+        $find = Notes::where('userid',1)->first();
+        if($find){
+            $notes = Notes::where(['userid' => 1 ,'ispinned'=>true])->get(
+                ['id','title','description','color','ispinned','isarchived','istrash']);
+                return response()->json(['data' => $notes],200);
+        }else{
+            return response()->json(['message' => 'unauthorized error']);
+        }
+    }
 
+    public function getUnpinnedNotes()
 
-
-
+    
+    public function updatePin(Request $request){
+        $find = Notes::find($request['id']);
+        if($find){
+            $find->ispinned = $request['ispinned'];
+            $find->save();
+            return response()->json(['message' => 'pin changed successfully']);
+        }else{
+            return response()->json(['message' => 'unauthorized error']);
+        }
+    }
+   
 
 }
