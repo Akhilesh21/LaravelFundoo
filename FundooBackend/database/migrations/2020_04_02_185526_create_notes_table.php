@@ -15,7 +15,7 @@ class CreateNotesTable extends Migration
     {
         Schema::create('notes', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('userid');
+            $table->integer('userid'); 
             $table->string('title')->nullable();
             $table->string('decription')->nullable();
             $table->boolean('ispinned')->default(0);

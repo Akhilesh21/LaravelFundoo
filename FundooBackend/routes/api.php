@@ -54,6 +54,8 @@ Route::post('updatePin', 'NoteController@updatePin');
 Route::get('getNotes', 'NoteController@getNotes');
 Route::get('getPinnedNote', 'NoteController@getPinnedNote');
 Route::get('getUnPinNotes', 'NoteController@getUnPinNotes');
+Route::get('displayTrash', 'NoteController@displayTrash');
+
 
 
 Route::middleware('auth:api')->group(function () {

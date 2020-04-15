@@ -7,17 +7,11 @@ header('Access-Control-Request-Method: POST');
 
 use App\Model\Notes;
 use Illuminate\Http\Request;
-
 class NoteController extends Controller
 {
     public function createNote(Request $request)
     {
         $input = $request->all();
-        // $token = $request->header('Authorization');
-        // $array = preg_split("/\./",$token);
-        // $decode = base64_decode($array[1]);
-        // $user_id = $decode['sub'];
-        // $input['$user_id']= $user_id;
 
         if ($input['title'] == null && $input['body'] == null) {
             return response()->json(['Message' => 'title and description must not be empty'], 400);
@@ -27,6 +21,9 @@ class NoteController extends Controller
             return response()->json(['Message' => 'Note Created Successfully'], 200);
         }
     }
+
+
+
 /***
  *
  */
@@ -51,6 +48,7 @@ class NoteController extends Controller
      *
      */
     public function trashNote(Request $request)
+    
     {
         $note = Notes::find($request->id);
         if ($note) {
@@ -83,7 +81,30 @@ class NoteController extends Controller
             return response()->json(['message' => 'Note is Invalid'], 404);
         }
     }
+    // {
+    //     $note = Notes::find($request['id']);
+    //     if ($note) {
+    //         $note->istrash =$request['istrash'];
+    //         $note->save();
+    //         return response()->json(['message' => 'trashed successfully']);
+    //     } else {
+    //         return response()->json(['message' => 'unauthorized user']);
+    //     }
+    // }
+    
 
+    public function displayTrash(Request $request)
+    {
+            $find = Notes::where('userid', 1)->first();
+            if ($find) {
+                $notes = Notes::where(['userid' => 1 ,'istrash'=>true])->get(['id','title','decription','istrash']);
+                return response()->json(['data' => $notes],200);
+            }
+            else 
+            {
+                return response()->json(['message' => 'unauthorized error']);
+            }
+    }
     /**
      *
      */
@@ -121,17 +142,10 @@ class NoteController extends Controller
     }
 
     public function getNotes(){
-
-        /*
-        $token=$request->header('Authorization');
-        $tokenArray=preg_split("/\./", $token);
-        $decodeToken=base64_decode($tokenArray[1]);
-        $decodeToken=json_decode($decodeToken,true);
-        $id=$decodeToken['sub'];
-        */
+        
         $find = Notes::where('userid', 1)->first();
         if ($find) {
-            $notes = Notes::where('userid',1)->get(['id','title','decription']);
+        $notes = Notes::where('userid',1)->get(['id','title','decription','color','istrash','isarchive']);
         return response()->json(['data' => $notes],200);
         }
         else 
