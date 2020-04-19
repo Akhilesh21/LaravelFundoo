@@ -145,7 +145,8 @@ class NoteController extends Controller
         
         $find = Notes::where('userid', 1)->first();
         if ($find) {
-        $notes = Notes::where('userid',1)->get(['id','title','decription','color','istrash','isarchive']);
+
+        $notes = Notes::where('userid',1)->get(['id','title','decription','color','istrash','isarchive','ispinned','reminder']);
         return response()->json(['data' => $notes],200);
         }
         else 
@@ -209,16 +210,63 @@ class NoteController extends Controller
         }
     }
     
-    public function updatePin(Request $request){
-        $find = Notes::find($request['id']);
-        if($find){
-            $find->ispinned = $request['ispinned'];
-            $find->save();
-            return response()->json(['message' => 'pin changed successfully']);
+    // public function updatePin(Request $request){
+    //     $find = Notes::find($request['id']);
+    //     if($find){
+    //         $find->ispinned = $request['ispinned'];
+    //         $find->save();
+    //         return response()->json(['message' => 'pin changed successfully']);
+    //     }else{
+    //         return response()->json(['message' => 'unauthorized error']);
+    //     }
+    // }
+             
+    public function updatePin(Request $request)
+    {
+        $note = Notes::find($request->id);
+        if($note){
+            if($note->ispinned == 1) {
+             $note->ispinned = 0;
+            }else
+            $note->ispinned = 1;
+            // $note->ispinned = 1 || $note->ispinned = 0;
+            if($note->save()){
+                return response()->json(['message' => 'Note unarchived successfully'],200);
+            }else{
+                return response()->json(['message' => 'Error while unarchive'], 400);
+            }
         }else{
-            return response()->json(['message' => 'unauthorized error']);
+            return response()->json(['message' => 'Note is invalid'],404);
         }
     }
-   
+
+    public function addReminder(Request $request){
+        $note = Notes::find($request->id);
+        if($note){
+            $note->reminder = $request['reminder'];
+            // $note->ispinned = 1 || $note->ispinned = 0;
+            if($note->save()){
+                return response()->json(['message' => 'added reminder  successfully'],200);
+            }else{
+                return response()->json(['message' => 'Error while unarchive'], 400);
+            }
+        }else{
+            return response()->json(['message' => 'Note is invalid'],404);
+        }
+    }
+    public function removeReminder(Request $request){
+        $note = Notes::find($request->id);
+        if($note){
+            $note->null;
+            // $note->ispinned = 1 || $note->ispinned = 0;
+            if($note->save()){
+                return response()->json(['message' => 'added reminder  successfully'],200);
+            }else{
+                return response()->json(['message' => 'Error while unarchive'], 400);
+            }
+        }else{
+            return response()->json(['message' => 'Note is invalid'],404);
+        }
+    }
 
 }
