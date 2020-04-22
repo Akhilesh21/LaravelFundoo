@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Notes extends Model
 {
     protected $fillable = [
-        'title','decription' ,'userid','color','ispinned','isarchive','reminder',
+        'title','decription' ,'userid','color','ispinned','isarchive','reminder','labelname','token',
     ];
 }
 

@@ -7,6 +7,7 @@ header('Access-Control-Request-Method: POST');
 
 use App\Rabbit\RBMQSender;
 use App\User;
+use App\Model\Notes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Validator;
@@ -196,5 +197,35 @@ class UserController extends Controller
         auth()->logout();
         return response()->json(['message' => 'Successfully logged out'], 200);
     }
+
+    public function updateProfile(Request $request)
+    {
+        $find=User::find($request['token']);
+        if($find){
+            $find->profile=$request['profilePic'];
+            $find->save();
+            return response()->json(['message'=>$find]);
+        }
+        else
+         return response()->json(['message'=>"profile not updated"]);
+    }
+
+    public function collaborator(Request $request)
+    {
+        $emailExist=User::where(['email'=>$request['email']])->get('id');
+        if($emailExist){
+            $user = Notes::find($request['id']);
+            if ($user) {
+                $user->collaborator=$request['email'];
+                $user->save();
+                return response()->json(['message' => 'Collaboration is added'], 200);
+            } else {
+                return response()->json(['message' => 'Error while adding']);
+            }
+        }
+        else{
+            return response()->json(['message' => 'Unregistered user']);
+        }
+    }  
 
 }

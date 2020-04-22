@@ -18,3 +18,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/', 'ImageUploadController@home');
+
+Route::post('/upload/images', [
+  'uses'   =>  'ImageUploadController@uploadImages',
+  'as'     =>  'uploadImage'
+]);

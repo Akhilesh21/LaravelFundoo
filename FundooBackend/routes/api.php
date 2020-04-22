@@ -56,7 +56,9 @@ Route::get('getPinnedNote', 'NoteController@getPinnedNote');
 Route::get('getUnPinNotes', 'NoteController@getUnPinNotes');
 Route::get('displayTrash', 'NoteController@displayTrash');
 
+//Labels
 
+Route::post('createLabel', 'NoteController@createLabel');
 
 Route::middleware('auth:api')->group(function () {
     Route::get('user', 'NoteController@details');

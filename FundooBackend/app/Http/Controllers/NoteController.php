@@ -6,6 +6,7 @@ header("Access-Control-Allow-Headers: *");
 header('Access-Control-Request-Method: POST');
 
 use App\Model\Notes;
+use App\Labelnotes;
 use Illuminate\Http\Request;
 class NoteController extends Controller
 {
@@ -21,6 +22,14 @@ class NoteController extends Controller
             return response()->json(['Message' => 'Note Created Successfully'], 200);
         }
     }
+
+
+/**
+ * 
+ */
+
+
+
 
 
 
@@ -67,6 +76,62 @@ class NoteController extends Controller
     /**
      *
      */
+    public function createLabel(Request $request)//to create new Label Name
+    {
+       
+        $labelname =$request->all();
+        // $find=Labelnotes::where(['userid' => $labelname['token'],'noteid'=>$labelname['noteid'],'labelname'=> $labelname['labelname']])->get(['id']);
+        // if(count($find) == 0)
+        // {
+            $labelname['userid']=$labelname['token'];
+            $data=Labelnotes::create($labelname);
+            return response()->json(['message' => 'label created']);
+    //     }
+    //     else{
+    //         return response()->json(['message' => 'label not created']);
+    //     }   
+    }
+
+
+
+    public function getUniqueLabels(Request $request)
+    {
+        $labels =Labelnotes::select(['id','labelname'])->distinct('labelname')->where('userid',$request['token'])->get();
+        if ($labels) {
+           $result=array();
+           for($i=0;$i<count($labels);$i++)
+            {
+                $inc=0;
+                $temp=$labels[$i]['labelname'];
+                for($j=0;$j<count($result);$j++)
+                {
+                    if($temp==$result[$j]['labelname'])
+                    $inc++;
+                }
+                if($inc==0)
+                $result[]=$labels[$i];
+            }
+            return response()->json(['data' => $result]);
+        } else {
+            return response()->json(['message' => 'unauthorized user']);
+        }
+    }
+
+    public function getLabelNotes(Request $request)//to get label names depend on note id
+    {
+        $find = Labelnotes::where(['userid' => $request['token']])->get(['id']);
+        if ($find) {
+           $labels=Labelnotes::where(['userid' => $request['token']])->get(['id','labelname','noteid']);
+           return response()->json(['data' => $labels]);
+        } else {
+            return response()->json(['message' => 'unauthorized user']);
+        }
+    }
+
+
+
+
+
     public function restoreNote(Request $request)
     {
         $note = Notes::find($request->id);
@@ -146,7 +211,7 @@ class NoteController extends Controller
         $find = Notes::where('userid', 1)->first();
         if ($find) {
 
-        $notes = Notes::where('userid',1)->get(['id','title','decription','color','istrash','isarchive','ispinned','reminder']);
+        $notes = Notes::where('userid',1)->get(['id','title','decription','color','istrash','isarchive','ispinned','reminder',]);
         return response()->json(['data' => $notes],200);
         }
         else 
