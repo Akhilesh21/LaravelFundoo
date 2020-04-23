@@ -17,12 +17,14 @@ class CreateNotesTable extends Migration
             $table->bigIncrements('id');
             $table->integer('userid'); 
             $table->string('title')->nullable();
+            $table->string('labelname')->nullable();
             $table->string('decription')->nullable();
             $table->boolean('ispinned')->default(0);
             $table->boolean('istrash')->default(0);
             $table->boolean('isarchive')->default(0);
             $table->string("reminder")->nullable();
             $table->string("color")->nullable();
+            $table->string("collaborator")->nullable();
             $table->timestamps();
         });
     }

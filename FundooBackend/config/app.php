@@ -164,7 +164,7 @@ return [
 
         Laravel\Passport\PassportServiceProvider::class,
         'JD\Cloudder\CloudderServiceProvider',
-
+        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
         /*
          * Package Service Providers...
          */

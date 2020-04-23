@@ -5,16 +5,7 @@ use App\Http\Controllers\NoteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
+
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
@@ -22,7 +13,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 /****fundoo login registration */
 
-Route::post('login', 'UserController@login');
+ Route::post('login', 'UserController@login');
+//Route::post('login', 'AuthController@login');
+Route::post('me', 'AuthController@me');
+
 Route::post('register', 'UserController@register');
 Route::post('logout', 'UserController@logout');
 
@@ -49,7 +43,12 @@ Route::post('unarchiveNote', 'NoteController@unarchiveNote');
 Route::post('deleteNotes', 'NoteController@deleteNotes');
 Route::post('noteColor', 'NoteController@noteColor');
 Route::post('updatePin', 'NoteController@updatePin');
+Route::post('addCollaborator', 'UserController@collaborator'); 
 
+
+
+
+Route::post('updateProfile', 'UserController@updateProfile');
 //***********display */
 Route::get('getNotes', 'NoteController@getNotes');
 Route::get('getPinnedNote', 'NoteController@getPinnedNote');

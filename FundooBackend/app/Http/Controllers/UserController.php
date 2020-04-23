@@ -202,7 +202,7 @@ class UserController extends Controller
     {
         $find=User::find($request['token']);
         if($find){
-            $find->profile=$request['profilePic'];
+            $find->profile=$request['profile'];
             $find->save();
             return response()->json(['message'=>$find]);
         }
@@ -212,20 +212,15 @@ class UserController extends Controller
 
     public function collaborator(Request $request)
     {
-        $emailExist=User::where(['email'=>$request['email']])->get('id');
-        if($emailExist){
             $user = Notes::find($request['id']);
             if ($user) {
                 $user->collaborator=$request['email'];
                 $user->save();
-                return response()->json(['message' => 'Collaboration is added'], 200);
+                return response()->json(['message' => $user], 200);
             } else {
                 return response()->json(['message' => 'Error while adding']);
-            }
-        }
-        else{
-            return response()->json(['message' => 'Unregistered user']);
-        }
+            
     }  
 
+}
 }
