@@ -11,11 +11,11 @@ use App\Model\Notes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Controllers\SendMail;
+//use App\Http\Controllers\RBMQSender;
 
 class UserController extends Controller
 {
-      /**
+     /**
      * Handles Registration Request
      *
      * @param Request $request
@@ -57,12 +57,12 @@ class UserController extends Controller
         // \n" . url('/') . "/api/verifyMail/" . $token . "
         // \nOnce you click this link your email will be verified and you can login into system.\nThanks.";
 
-        // if ($rabbitmq->sendRabQueue($toEmail, $subject, $message)) {
+        // if ($rabbitmq->sendMail($toEmail, $subject, $message)) {
         //     return response()->json(['success' => $token, 'message' => 'Please Check Mail for Email Verification.'], 200);
         // } else {
         //     return response()->json(['success' => $token, 'message' => 'Error While Sending Mail.'], 400);
         // }
-        return response()->json(['token' => $token], 200);
+      return response()->json(['token' => $token], 200);
     }
 
     /**

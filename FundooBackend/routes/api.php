@@ -48,6 +48,7 @@ Route::post('addCollaborator', 'UserController@collaborator');
 
 
 
+
 Route::post('updateProfile', 'UserController@updateProfile');
 //***********display */
 Route::get('getNotes', 'NoteController@getNotes');
@@ -56,6 +57,7 @@ Route::get('getUnPinNotes', 'NoteController@getUnPinNotes');
 Route::get('displayTrash', 'NoteController@displayTrash');
 
 //Labels
+Route::get('getLabel', 'NoteController@getLabelNotes');
 
 Route::post('createLabel', 'NoteController@createLabel');
 
