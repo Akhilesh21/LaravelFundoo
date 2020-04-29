@@ -1,0 +1,6 @@
+
+start
+     select a.lastname , b.firstname
+     from employees a JOIN employees b
+     ON a.lastname=b.lastname limit 10;
+end

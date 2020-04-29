@@ -1,0 +1,15 @@
+ 
+   start
+
+   select a.ordernumber,b.officecode,
+    c.officecode as empoffcode ,
+    d.ordernumber as token ,
+    e.customernumber
+    from orderdetails a
+    NATURAL JOIN offices b
+    NATURAL JOIN employees c
+    NATURAL JOIN orders d
+    NATURAL JOIN payments e
+    limit 10;
+    
+    end

@@ -1,0 +1,20 @@
+start
+
+goto xampp
+next mysql
+next bin
+open command prompt and type mysql -h127.0.01 -uroot
+ex:  \xampp\mysql\bin>mysql -h127.0.01 -uroot (withoutpassword)
+after successfully login
+
+next
+enter
+select databases;(display all databases which are present)
+
+next
+enter
+use classicmodels;(selecting perticular database)
+
+next
+enter
+show tables;(display content tables in classicmodels)
