@@ -1,0 +1,14 @@
+create stored procedure for order table
+start
+delimiter /
+     create procedure dispaly_item()
+     begin
+     select * from orders;
+     end;
+    /
+end
+
+{display procedure}
+start
+call dispaly_item /
+end

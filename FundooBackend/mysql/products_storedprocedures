@@ -1,0 +1,14 @@
+create stored procedure for product table
+start
+delimiter /
+     create procedure disp_item()
+     begin
+     select * from product;
+     end;
+    /
+end
+
+{display procedure}
+start
+call disp_item /
+end
