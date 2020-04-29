@@ -1,0 +1,25 @@
+join between 5 tables (office code,officecode,empoffcode,token,customernumber 
+
+start
+ select a.ordernumber,b.officecode,c.officecode as empoffcode , d.ordernumber as token,  e.customernumber
+     from orderdetails a
+     CROSS JOIN  offices b
+     CROSS JOIN  employees c
+     CROSS JOIN  orders d
+     CROSS JOIN  payments e
+     limit 10;
+     $$    (using delimiter is optional)
+end
+
+/****************************/
+or
+start
+ 
+ select a.ordernumber , b.officecode ,
+ c.officecode as empoffcode , 
+ d.ordernumber as token , e.customernumber
+ from orderdetails a, offices b , employees c,
+ orders d , payments e limit 10;
+ $$  (using delimiter is optional)
+
+ end
