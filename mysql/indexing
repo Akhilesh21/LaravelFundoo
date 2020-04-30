@@ -1,0 +1,21 @@
+indexing for name it display according to alphabets in increasing order
+
+start
+ create index test on committees(name);
+
+ next
+
+  select * from committees ;
+end
+
+results
+MariaDB [classicmodels]> select * from committees ;
++--------------+--------+
+| committee_id | name   |
++--------------+--------+
+|            4 | Amelia |
+|            3 | Joe    |
+|            1 | John   |
+|            2 | Mary   |
++--------------+--------+
+4 rows in set (0.000 sec)

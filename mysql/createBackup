@@ -1,0 +1,6 @@
+start
+
+CREATE DATABASE classicmodels_backup;
+show databases;
+
+end

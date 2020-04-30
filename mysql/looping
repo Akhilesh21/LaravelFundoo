@@ -1,0 +1,130 @@
+Repeat LOOP:statement executes one or more statements 
+until a search condition is true
+
+ 
+start
+DELIMITER $$
+
+CREATE PROCEDURE RepeatDemo()
+BEGIN
+    DECLARE counter INT DEFAULT 1;
+    DECLARE result VARCHAR(100) DEFAULT '';
+    
+    REPEAT
+        SET result = CONCAT(result,counter,',');
+        SET counter = counter + 1;
+    UNTIL counter >= 10
+    END REPEAT;
+    
+    SELECT result;
+END$$
+
+DELIMITER ;
+----------------------------------------------------
+CALL RepeatDemo();
+---------------------------------------------------
+end
+
+
+
+
+
+while loop is a loop statement that 
+executes a block of code repeatedly as
+ long as a condition is true.
+
+start
+CREATE TABLE calendars(
+    id INT AUTO_INCREMENT,
+    fulldate DATE UNIQUE,
+    day TINYINT NOT NULL,
+    month TINYINT NOT NULL,
+    quarter TINYINT NOT NULL,
+    year INT NOT NULL,
+    PRIMARY KEY(id)
+);
+-------------------------------------------
+DELIMITER $$
+
+CREATE PROCEDURE InsertCalendar(dt DATE)
+BEGIN
+    INSERT INTO calendars(
+        fulldate,
+        day,
+        month,
+        quarter,
+        year
+    )
+    VALUES(
+        dt, 
+        EXTRACT(DAY FROM dt),
+        EXTRACT(MONTH FROM dt),
+        EXTRACT(QUARTER FROM dt),
+        EXTRACT(YEAR FROM dt)
+    );
+END$$
+
+DELIMITER ;
+--------------------------------------------------
+DELIMITER $$
+
+CREATE PROCEDURE LoadCalendars(
+    startDate DATE, 
+    day INT
+)
+BEGIN
+    
+    DECLARE counter INT DEFAULT 1;
+    DECLARE dt DATE DEFAULT startDate;
+
+    WHILE counter <= day DO
+        CALL InsertCalendar(dt);
+        SET counter = counter + 1;
+        SET dt = DATE_ADD(dt,INTERVAL 1 day);
+    END WHILE;
+
+END$$
+
+DELIMITER ;
+
+end
+
+
+
+----------------------------------------------------------------
+LOOP statement allows  to execute one or more statements repeatedly.
+
+
+
+start
+DROP PROCEDURE LoopDemo;
+
+DELIMITER $$
+CREATE PROCEDURE LoopDemo()
+BEGIN
+	DECLARE x  INT;
+	DECLARE str  VARCHAR(255);
+        
+	SET x = 1;
+	SET str =  '';
+        
+	loop_label:  LOOP
+		IF  x > 10 THEN 
+			LEAVE  loop_label;
+		END  IF;
+            
+		SET  x = x + 1;
+		IF  (x mod 2) THEN
+			ITERATE  loop_label;
+		ELSE
+			SET  str = CONCAT(str,x,',');
+		END  IF;
+	END LOOP;
+	SELECT str;
+END$$
+-----------------------------------------------------
+execute CALL LoopDemo();
+-------------------------------------------------------
+DELIMITER ;
+
+end

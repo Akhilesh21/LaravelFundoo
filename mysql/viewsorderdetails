@@ -1,0 +1,18 @@
+start
+ create VIEW test AS select ordernumber from orderdetails limit 5;
+ next
+ select * from test limit 5;
+end
+
+results
+MariaDB [classicmodels]> select * from test limit 5;
++-------------+
+| ordernumber |
++-------------+
+|       10100 |
+|       10100 |
+|       10100 |
+|       10100 |
+|       10101 |
++-------------+
+5 rows in set (0.001 sec)

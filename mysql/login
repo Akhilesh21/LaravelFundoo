@@ -9,7 +9,7 @@ after successfully login
 
 next
 enter
-select databases;(display all databases which are present)
+show databases;(display all databases which are present)
 
 next
 enter
@@ -18,6 +18,9 @@ use classicmodels;(selecting perticular database)
 next
 enter
 show tables;(display content tables in classicmodels)
+
+enter
+-> describe test(table name);
 
 +-------------------------+
 | Tables_in_classicmodels |
