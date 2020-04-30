@@ -4,7 +4,7 @@ goto xampp
 next mysql
 next bin
 open command prompt and type mysql -h127.0.01 -uroot
-ex:  \xampp\mysql\bin>mysql -h127.0.01 -uroot (withoutpassword)
+ex:  \xampp\mysql\bin>mysql -h127.0.0.1 -uroot (withoutpassword)
 after successfully login
 
 next

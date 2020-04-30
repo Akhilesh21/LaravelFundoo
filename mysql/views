@@ -1,0 +1,22 @@
+create views for daysofweek
+start
+
+CREATE VIEW daysofweek (day) AS
+    SELECT 'Mon' 
+    UNION 
+    SELECT 'Tue'
+    UNION 
+    SELECT 'Web'
+    UNION 
+    SELECT 'Thu'
+    UNION 
+    SELECT 'Fri'
+    UNION 
+    SELECT 'Sat'
+    UNION 
+    SELECT 'Sun';
+
+end
+
+to execute
+SELECT * FROM daysofweek;

@@ -1,0 +1,36 @@
+between payments and customers;
+This query returns data from both tables 
+customers and payments using the inner join
+
+start
+
+SELECT 
+    customerName, checkNumber, paymentDate,  amount
+FROM
+    customers
+INNER JOIN
+    payments USING (customerNumber);
+
+end
+
+/
+*creates a view customerPayments
+*
+/
+start
+
+CREATE VIEW customerPayments
+AS 
+    SELECT customerName, checkNumber, paymentDate, amount 
+    FROM 
+    customers 
+    INNER JOIN
+    payments USING (customerNumber);
+end
+
+/
+*display Views help simplify complex queries.
+/
+start
+ SELECT * FROM customerPayments;
+end

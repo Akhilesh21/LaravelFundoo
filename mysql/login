@@ -4,7 +4,7 @@ goto xampp
 next mysql
 next bin
 open command prompt and type mysql -h127.0.01 -uroot
-ex:  \xampp\mysql\bin>mysql -h127.0.01 -uroot (withoutpassword)
+ex:  \xampp\mysql\bin>mysql -h127.0.0.1 -uroot (withoutpassword)
 after successfully login
 
 next
@@ -18,3 +18,100 @@ use classicmodels;(selecting perticular database)
 next
 enter
 show tables;(display content tables in classicmodels)
+
++-------------------------+
+| Tables_in_classicmodels |
++-------------------------+
+| committees              |
+| customers               |
+| employees               |
+| members                 |
+| offices                 |
+| orderdetails            |
+| orders                  |
+| payments                |
+| productlines            |
+| products                |
++-------------------------+
+
+enter
+
+MariaDB [classicmodels]> select * from customers limit 2;
++----------------+--------------------+-----------------+------------------+------------+-----------------+--------------+-----------+-------+------------+---------+------------------------+-------------+
+| customerNumber | customerName       | contactLastName | contactFirstName | phone      | addressLine1    | addressLine2 | city      | state | postalCode | country | salesRepEmployeeNumber | creditLimit |
++----------------+--------------------+-----------------+------------------+------------+-----------------+--------------+-----------+-------+------------+---------+------------------------+-------------+
+|            103 | Atelier graphique  | Schmitt         | Carine           | 40.32.2555 | 54, rue Royale  | NULL         | Nantes    | NULL  | 44000      | France  |                   1370 |    21000.00 |
+|            112 | Signal Gift Stores | King            | Jean             | 7025551838 | 8489 Strong St. | NULL         | Las Vegas | NV    | 83030      | USA     |                   1166 |    71800.00 |
++----------------+--------------------+-----------------+------------------+------------+-----------------+--------------+-----------+-------+------------+---------+------------------------+-------------+
+2 rows in set (0.000 sec)
+
+enter
+MariaDB [classicmodels]> select * from employees limit 2;
++----------------+-----------+-----------+-----------+--------------------------------+------------+-----------+-----------+
+| employeeNumber | lastName  | firstName | extension | email                          | officeCode | reportsTo | jobTitle  |
++----------------+-----------+-----------+-----------+--------------------------------+------------+-----------+-----------+
+|           1002 | Murphy    | Diane     | x5800     | dmurphy@classicmodelcars.com   | 1          |      NULL | President |
+|           1056 | Patterson | Mary      | x4611     | mpatterso@classicmodelcars.com | 1          |      1002 | VP Sales  |
++----------------+-----------+-----------+-----------+--------------------------------+------------+-----------+-----------+
+2 rows in set (0.001 sec)
+
+enter
+MariaDB [classicmodels]> select * from offices limit 2;
++------------+---------------+-----------------+-------------------+--------------+-------+---------+------------+-----------+
+| officeCode | city          | phone           | addressLine1      | addressLine2 | state | country | postalCode | territory |
++------------+---------------+-----------------+-------------------+--------------+-------+---------+------------+-----------+
+| 1          | San Francisco | +1 650 219 4782 | 100 Market Street | Suite 300    | CA    | USA     | 94080      | NA        |
+| 2          | Boston        | +1 215 837 0825 | 1550 Court Place  | Suite 102    | MA    | USA     | 02107      | NA        |
++------------+---------------+-----------------+-------------------+--------------+-------+---------+------------+-----------+
+2 rows in set (0.000 sec)
+
+enter
+MariaDB [classicmodels]> select * from orderdetails limit 2;
++-------------+-------------+-----------------+-----------+-----------------+
+| orderNumber | productCode | quantityOrdered | priceEach | orderLineNumber |
++-------------+-------------+-----------------+-----------+-----------------+
+|       10100 | S18_1749    |              30 |    136.00 |               3 |
+|       10100 | S18_2248    |              50 |     55.09 |               2 |
++-------------+-------------+-----------------+-----------+-----------------+
+2 rows in set (0.000 sec)
+
+enter
+MariaDB [classicmodels]> select * from orders limit 2;
++-------------+------------+--------------+-------------+---------+------------------------+----------------+
+| orderNumber | orderDate  | requiredDate | shippedDate | status  | comments               | customerNumber |
++-------------+------------+--------------+-------------+---------+------------------------+----------------+
+|       10100 | 2003-01-06 | 2003-01-13   | 2003-01-10  | Shipped | NULL                   |            363 |
+|       10101 | 2003-01-09 | 2003-01-18   | 2003-01-11  | Shipped | Check on availability. |            128 |
++-------------+------------+--------------+-------------+---------+------------------------+----------------+
+2 rows in set (0.001 sec)
+
+enter
+MariaDB [classicmodels]> select * from payments limit 2;
++----------------+-------------+-------------+----------+
+| customerNumber | checkNumber | paymentDate | amount   |
++----------------+-------------+-------------+----------+
+|            103 | HQ336336    | 2004-10-19  |  6066.78 |
+|            103 | JM555205    | 2003-06-05  | 14571.44 |
++----------------+-------------+-------------+----------+
+2 rows in set (0.000 sec)
+
+enter
+MariaDB [classicmodels]> select * from productlines limit 2;
++--------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+-------+
+| productLine  | textDescription                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | htmlDescription | image |
++--------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+-------+
+| Classic Cars | Attention car enthusiasts: Make your wildest car ownership dreams come true. Whether you are looking for classic muscle cars, dream sports cars or movie-inspired miniatures, you will find great choices in this category. These replicas feature superb attention to detail and craftsmanship and offer features such as working steering system, opening forward compartment, opening rear trunk with removable spare wheel, 4-wheel independent spring suspension, and so on. The models range in size from 1:10 to 1:24 scale and include numerous limited edition and several out-of-production vehicles. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office. | NULL            | NULL  |
+| Motorcycles  | Our motorcycles are state of the art replicas of classic as well as contemporary motorcycle legends such as Harley Davidson, Ducati and Vespa. Models contain stunning details such as official logos, rotating wheels, working kickstand, front suspension, gear-shift lever, footbrake lever, and drive chain. Materials used include diecast and plastic. The models range in size from 1:10 to 1:50 scale and include numerous limited edition and several out-of-production vehicles. All models come fully assembled and ready for display in the home or office. Most include a certificate of authenticity.                                                                                                                                             | NULL            | NULL  |
++--------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+-------+
+2 rows in set (0.066 sec)
+
+enter
+MariaDB [classicmodels]> select * from products limit 2;
++-------------+---------------------------------------+--------------+--------------+-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+----------+--------+
+| productCode | productName                           | productLine  | productScale | productVendor           | productDescription                                                                                                                                                                                                                     | quantityInStock | buyPrice | MSRP   |
++-------------+---------------------------------------+--------------+--------------+-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+----------+--------+
+| S10_1678    | 1969 Harley Davidson Ultimate Chopper | Motorcycles  | 1:10         | Min Lin Diecast         | This replica features working kickstand, front suspension, gear-shift lever, footbrake lever, drive chain, wheels and steering. All parts are particularly delicate due to their precise scale and require special care and attention. |            7933 |    48.81 |  95.70 |
+| S10_1949    | 1952 Alpine Renault 1300              | Classic Cars | 1:10         | Classic Metal Creations | Turnable front wheels; steering function; detailed interior; detailed engine; opening hood; opening trunk; opening doors; and detailed chassis.                                                                                        |            7305 |    98.58 | 214.30 |
++-------------+---------------------------------------+--------------+--------------+-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+----------+--------+
+2 rows in set (0.001 sec)
+
